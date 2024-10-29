@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, default: mongoose } = require("mongoose");
 
 const documentSchema = new Schema({
   title: {
@@ -25,9 +25,13 @@ const documentSchema = new Schema({
     type: String,
     required: [true, "Descriptores are required"],
   },
-  Summary: {
+  summary: {
     type: String,
     required: [true, "Summary is required"],
+  },
+  documentReferences: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Entity",
   },
 });
 
