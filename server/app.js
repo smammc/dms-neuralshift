@@ -5,6 +5,9 @@ require("dotenv").config();
 // ℹ️ Connects to the database
 require("./db");
 
+/* const processing = require("./data/processing");
+
+processing.parseHtmlFiles() */
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");

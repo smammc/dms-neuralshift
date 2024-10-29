@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const cheerio = require("cheerio");
+const mongoose = require("../db/index");
+const Document = require("../models/Document.model");
 
 // Directory where HTML files are stored
 const directoryPath = path.join(__dirname);
@@ -12,14 +14,12 @@ const parseHtmlFiles = () => {
     if (err) {
       return console.log("Could not read directory: ", err);
     }
-    // console.log(directoryPath);
-    // console.log(files);
     // Loop through each file
     files.forEach((file) => {
       // Obtain only the HTML files
       if (path.extname(file) === ".html") {
         const filePath = path.join(directoryPath, file);
-        console.log(filePath);
+        const fileName = file.split(".")[0]; // Get filename for _id
 
         // Read content of file
         fs.readFile(filePath, "binary", (err, content) => {
@@ -53,13 +53,40 @@ const parseHtmlFiles = () => {
           const summary = extractText("Sumário :");
 
           //   Output extracted information
-          console.log(title);
-          console.log(process);
-          console.log(reporter);
-          console.log("COURT MISSING");
-          console.log(date);
-          console.log(descriptors);
-          console.log(summary);
+          const newDocument = {
+            _id: fileName,
+            title: title,
+            process: process,
+            reporter: reporter,
+            court: "court",
+            date: date,
+            descriptors: descriptors,
+            summary: summary,
+            documentReferences: fileName,
+          };
+          // console.log(newDocument);
+
+          // Check if document already exists before saving it
+          Document.findOne({ _id: newDocument._id })
+            .then((existingDocument) => {
+              if (existingDocument) {
+                console.log(
+                  `Document with ID ${newDocument._id} already exists`
+                );
+              } else {
+                // Save document
+                return Document.create(newDocument)
+                  .then((createdDocument) =>
+                    console.log("Document saved:\n", createdDocument)
+                  )
+                  .catch((error) =>
+                    console.log("Error saving document: ", error)
+                  );
+              }
+            })
+            .catch((error) =>
+              console.log("Error checking document existence: ", error)
+            );
         });
       }
     });

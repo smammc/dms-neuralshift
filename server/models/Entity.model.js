@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, default: mongoose } = require("mongoose");
 
 const referenceSchema = new Schema({
   name: {
@@ -23,7 +23,7 @@ const EntitySchema = new Schema({
   entities: {
     type: [referenceSchema],
     required: true,
-    description: "Array of entity objects",
+    description: "Array of reference objects",
   },
 });
 
