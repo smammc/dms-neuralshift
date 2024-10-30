@@ -1,0 +1,43 @@
+.document-container {
+  width: 100%;
+  height: auto;
+  background-color: rgb(240, 195, 111);
+  margin: 20px;
+}
+
+.processo {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+/* .processo-texto {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+} */
+
+.tribunal {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.sumario {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.sumario-texto {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.descritores {
+  display: flex;
+  flex-direction: column;
+}
+.descritores-texto > ul {
+  list-style-type: none;
+}
