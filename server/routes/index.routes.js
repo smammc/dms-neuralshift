@@ -1,11 +1,6 @@
 const router = require("express").Router();
-const { request } = require("../app");
 const Document = require("../models/Document.model");
 const Entity = require("../models/Entity.model");
-
-router.get("/", (req, res, next) => {
-  res.json("All good in here");
-});
 
 // Get all documents
 router.get("/documents", (request, response, next) => {
@@ -21,18 +16,46 @@ router.get("/documents", (request, response, next) => {
     });
 });
 
-// Delete document
+// Delete document and entity
 
-router.delete("/:documentId", (request, response, next) => {
-  const { documentId } = request.params;
-  Document.findByIdAndDelete(documentId)
-    .then((deletedDocument) => {
-      console.log("Documented successuffully deleted");
-      response.status(200).send("Document deleted");
+router.delete("/:id", (request, response, next) => {
+  const { id } = request.params;
+
+  // Delete both the Document and Entity in parallel
+  Promise.all([Document.findByIdAndDelete(id), Entity.findByIdAndDelete(id)])
+    .then(([deletedDocument, deletedEntity]) => {
+      // Check if both Document and Entity were deleted
+      if (!deletedDocument && !deletedEntity) {
+        return response
+          .status(404)
+          .json({ error: "Document and Entity not found" });
+      }
+
+      if (!deletedDocument) {
+        console.log("Entity successfully deleted, but Document not found.");
+        return response
+          .status(200)
+          .json({ message: "Entity deleted, but Document not found" });
+      }
+
+      if (!deletedEntity) {
+        console.log("Document successfully deleted, but Entity not found.");
+        return response
+          .status(200)
+          .json({ message: "Document deleted, but Entity not found" });
+      }
+
+      // If both deletions were successful
+      console.log("Document and Entity successfully deleted.");
+      response
+        .status(200)
+        .json({ message: "Document and Entity successfully deleted" });
     })
     .catch((error) => {
-      console.log("Error deleting document: ", error);
-      response.status(500).json({ error: "Failed to delete document" });
+      console.log("Error deleting Document or Entity: ", error);
+      response
+        .status(500)
+        .json({ error: "Failed to delete Document or Entity" });
     });
 });
 
