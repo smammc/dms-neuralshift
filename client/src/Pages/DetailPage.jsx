@@ -50,7 +50,10 @@ export default function DetailPage({ documents }) {
   };
 
   // Summary with links
-  //   const linkedDecision = createLinkedReferences(document.decision, references);
+  const linkedDecisionText = createLinkedReferences(
+    document.decision_text,
+    references
+  );
 
   return (
     <div className="detail-container">
@@ -63,6 +66,12 @@ export default function DetailPage({ documents }) {
             <h3> Processo: </h3>
           </div>
           <div className="texto">{document.process}</div>
+        </div>
+        <div className="decisao">
+          <div className="titulo">
+            <h3> Decisão: </h3>
+          </div>
+          <div className="texto">{document.decision}</div>
         </div>
         <div className="relator">
           <div className="titulo">
@@ -81,10 +90,6 @@ export default function DetailPage({ documents }) {
             <h3> Sumário: </h3>
           </div>
           <div className="texto">{document.summary}</div>
-          {/* <div
-            className="texto"
-            dangerouslySetInnerHTML={{ __html: linkedSummary }}
-          ></div> */}
         </div>
         <div className="data">
           <div className="titulo">
@@ -98,11 +103,14 @@ export default function DetailPage({ documents }) {
           </div>
           <div className="texto">{document.descriptors}</div>
         </div>
-        <div className="decisao">
+        <div className="decisao-integral">
           <div className="titulo">
-            <h3> Decisão: </h3>
+            <h3>Decisão Integral</h3>
           </div>
-          {/* <div className="texto">{item.process}</div> */}
+          <div
+            className="texto"
+            dangerouslySetInnerHTML={{ __html: linkedDecisionText }}
+          ></div>
         </div>
       </div>
     </div>
