@@ -19,6 +19,14 @@ function processHtmlFile(filePath, fileName) {
 
     // Extract information from HTML
     const title = $("title").text();
+
+    // Extract court from title
+    // If title includes "Supremo" extract everything after that
+    // Else extract everything after "Tribunal"
+    const court = title.includes("Supremo")
+      ? title.match(/Supremo.*/)[0]
+      : title.match(/Tribunal.*/)[0];
+
     const extractText = (labels) => {
       for (const label of labels) {
         const text = $(`td:contains("${label}")`)
@@ -39,10 +47,12 @@ function processHtmlFile(filePath, fileName) {
       title: title,
       process: extractText(["Processo:"]),
       reporter: extractText(["Relator:"]),
-      court: "court",
+      court: court,
       date: extractText(["Data do Acordão:"]),
       descriptors: extractText(["Descritores:"]),
       summary: extractText(["Sumário :", "Sumário"]), // Check both labels
+      decision: extractText(["Decisão:"]),
+      decision_text: extractText(["Decisão Texto Integral:"]),
       documentReferences: fileName,
     };
 

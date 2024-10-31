@@ -29,6 +29,14 @@ const documentSchema = new Schema({
     type: String,
     required: [true, "Summary is required"],
   },
+  decision: {
+    type: String,
+    required: [true, "Decision is required"],
+  },
+  decision_text: {
+    type: String,
+    required: [true, "Decision text is required"],
+  },
   documentReferences: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Entity",
