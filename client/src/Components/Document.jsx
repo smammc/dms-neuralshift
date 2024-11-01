@@ -2,8 +2,11 @@ import "./Document.css";
 import { Link } from "react-router-dom";
 import external from "../assets/external.png";
 import trash from "../assets/delete.png";
+import { useState } from "react";
 
 export default function Document({ item, index, deleteDocument }) {
+  // Track deletion status
+
   // Format descriptors to make it easier to display
   const descriptors = item.descriptors.split("\n");
 

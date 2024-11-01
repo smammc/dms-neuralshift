@@ -52,3 +52,13 @@ img {
   padding-left: 10px;
   font-size: 14px;
 }
+
+.success-message {
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 10px;
+  border: 1px solid #d6e9c6;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 15px;
+}

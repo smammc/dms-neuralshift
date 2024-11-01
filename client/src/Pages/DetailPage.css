@@ -1,0 +1,30 @@
+.information-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-around;
+}
+
+.descriptors .texto {
+  width: 100%;
+  font-size: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.descriptors .texto > div {
+  padding: 10px;
+}
+
+.summary .texto {
+  justify-content: start;
+  text-align: start;
+}
+
+.decision-text .texto {
+  text-align: justify;
+}

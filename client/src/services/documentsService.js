@@ -16,11 +16,12 @@ export const fetchDocumnts = async () => {
 
 export const deleteDocument = async (id) => {
   try {
-    const response = axios.delete(
+    const response = await axios.delete(
       `${import.meta.env.VITE_SERVER_URL}/api/${id}`
     );
     return response;
   } catch (error) {
     console.log("Error deleting document: ", error);
+    throw error;
   }
 };
