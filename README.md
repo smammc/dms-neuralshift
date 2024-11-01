@@ -82,9 +82,10 @@ This Document Management System is a fullstack application designed to process, 
 ## Docker
 
 1. Navigate to main directory:
-´´´
+
+```
 cd document-management-system
-´´´
+```
 
 2. Build and start:
 
